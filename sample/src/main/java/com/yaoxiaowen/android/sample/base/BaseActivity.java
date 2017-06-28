@@ -2,8 +2,9 @@ package com.yaoxiaowen.android.sample.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,4 +21,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initView();
     protected abstract void initListener();
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }
