@@ -1,5 +1,6 @@
 package com.yaoxiaowen.android.sample.test;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,27 +10,40 @@ import android.widget.TextView;
 
 import com.yaoxiaowen.android.sample.R;
 import com.yaoxiaowen.android.sample.base.BaseActivity;
+import com.yaoxiaowen.android.sample.log.LogUtils;
+import com.yaoxiaowen.utils.Utils_Screen;
 
 public class TestMainActivity extends BaseActivity {
 
-    private Button btn1;
-    private Button btn2;
-    private Button btn3;
-    private Button btn4;
-    private Button btn5;
+    protected Button btn1;
+    protected Button btn2;
+    protected Button btn3;
+    protected Button btn4;
+    protected Button btn5;
 
-    private TextView tv1;
-    private TextView tv2;
-    private TextView tv3;
-    private TextView tv4;
-    private TextView tv5;
+    protected TextView tv1;
+    protected TextView tv2;
+    protected TextView tv3;
+    protected TextView tv4;
+    protected TextView tv5;
 
+    private static final String TAG  = "TestMainActivity";
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        testGetScreenWidthHeight();
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         goneIfEmptyBtn();
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -117,4 +131,25 @@ public class TestMainActivity extends BaseActivity {
             btn5.setVisibility(View.VISIBLE);
         }
     }//end of ""
+
+    /**
+     * 测试代码，得到屏幕宽高,未来需要删除
+     */
+    private void testGetScreenWidthHeight(){
+
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("手机型号 : model=" + Build.MODEL);
+            sb.append("\t手机厂商: " + Build.MANUFACTURER);
+            sb.append("\t屏幕宽度 " + Utils_Screen.getScreenWidth(this));
+            sb.append("\t屏幕高度" + Utils_Screen.getScreenHeight(this));
+//            mLog.e(TAG, sb.toString());
+
+//            tv1.setText(sb.toString());
+
+            LogUtils.i(TAG, "" + sb.toString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
