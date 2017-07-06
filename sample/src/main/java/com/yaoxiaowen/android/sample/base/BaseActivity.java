@@ -1,6 +1,7 @@
 package com.yaoxiaowen.android.sample.base;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -16,7 +17,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    protected abstract int getLayoutId();
+    protected abstract @LayoutRes  int getLayoutId();
     protected abstract void initData();
     protected abstract void initView();
     protected abstract void initListener();
