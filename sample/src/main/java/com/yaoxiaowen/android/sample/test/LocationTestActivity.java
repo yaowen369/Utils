@@ -31,7 +31,7 @@ public class LocationTestActivity extends TestMainActivity {
                 tv1.setText("GPS开关状态 : " + stausGps + "\t" + operationCount);
                 break;
             case R.id.testaMainBtn2:
-                String stausNetWork = Utils_Location.isNetWorkEnable(getBaseContext()) ? "打开" : "关闭";
+                String stausNetWork = Utils_Location.isNetworkEnable(getBaseContext()) ? "打开" : "关闭";
                 tv1.setText("网络定位状态 : " + stausNetWork + "\t" + operationCount);
                 break;
             case R.id.testaMainBtn3:

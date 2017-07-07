@@ -8,6 +8,10 @@ import android.content.Context;
  * time:  2017/6/28 19:29  qq:2669932513
  *
  * 网络工具类
+ *
+ *
+ * 关于网络的一些功能类
+ *
  */
 public class Utils_Network {
 
