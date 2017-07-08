@@ -18,7 +18,7 @@ public class LocationTestActivity extends TestMainActivity {
         btn2.setText("网络定位功能是否打开");
         btn3.setText("定位功能是否打开");
         btn4.setText("跳转到GPS设置页面");
-        btn5.setText("强制打开GPS");
+//        btn5.setText("强制打开GPS");
     }
 
 
@@ -37,7 +37,7 @@ public class LocationTestActivity extends TestMainActivity {
             case R.id.testaMainBtn3:
                 String stausLocaton = Utils_Location.isLocationEnable(getBaseContext()) ? "打开" : "关闭";
                 tv1.setText("定位功能总体 : " + stausLocaton + "\t" + operationCount);
-                Utils_Location.openGps(getBaseContext());
+//                Utils_Location.openGps(getBaseContext());
                 break;
             case R.id.testaMainBtn4:
                 Utils_Location.jumpGpsSetting(this, jumpGPSRequestCode);
