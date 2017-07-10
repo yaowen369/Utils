@@ -6,7 +6,7 @@ import android.view.View;
 import com.yaoxiaowen.android.sample.R;
 import com.yaoxiaowen.utils.Utils_Location;
 
-public class LocationTestActivity extends TestMainActivity {
+public class LocationTestActivity extends TestBaseActivity {
 
     private static final int jumpGPSRequestCode = 42;
     private int operationCount = 0;

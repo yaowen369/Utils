@@ -13,7 +13,7 @@ import com.yaoxiaowen.android.sample.base.BaseActivity;
 import com.yaoxiaowen.android.sample.log.LogUtils;
 import com.yaoxiaowen.utils.Utils_Screen;
 
-public class TestMainActivity extends BaseActivity {
+public class TestBaseActivity extends BaseActivity {
 
     protected Button btn1;
     protected Button btn2;
@@ -27,7 +27,7 @@ public class TestMainActivity extends BaseActivity {
     protected TextView tv4;
     protected TextView tv5;
 
-    private static final String TAG  = "TestMainActivity";
+    private static final String TAG  = "TestBaseActivity";
 
     @Override
     protected void onStart() {

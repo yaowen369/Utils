@@ -35,17 +35,20 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
 
-
 }
 
-//http://www.jianshu.com/p/90bd75e6a1d7
-
+// YaoWen(43194) modify  at 2017/7/10 16:30
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.novoda:bintray-release:0.4.0'
+        //在 as更新到2.3.3, 并且 com.android.tools.build:gradle 也更新到 2.3.3之后，
+        //在Win 7机器上, bintray-release 0.4.0 编译一直错误。类似gradle没有 相关方法的错误。
+        //当更改到 0.5.0之后，才ok
+        //目前尚不清楚 在mac下会怎么样。 等待更进一步的测试
+//        classpath 'com.novoda:bintray-release:0.4.0'
+        classpath 'com.novoda:bintray-release:0.5.0'
     }
 }
 
