@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.yaoxiaowen.android.sample.base.BaseActivity;
-import com.yaoxiaowen.utils.Utils_Test;
 
 
 public class MainActivity extends BaseActivity {
