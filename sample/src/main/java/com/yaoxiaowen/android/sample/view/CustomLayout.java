@@ -12,29 +12,35 @@ import com.yaoxiaowen.android.sample.log.LogUtils;
 
 
 /**
- * @see CustomLayout
- * 根据该类修改而来
+ * YaoWen(43194) create at tongcheng work pc,
+ * time:  2017/7/10 17:14  qq:2669932513
+ *
+ *  参考:
+ *  http://blog.csdn.net/xmxkf/article/details/51500304
+ *
+ *  但是依旧没有解决我的问题，如果该类使用了padding.那么就不对了
  */
-public class FlowLayout extends ViewGroup{
+public class CustomLayout extends ViewGroup{
 
     private static final String TAG = "FlowLayout";
 
     private Context mContext;
 
-    public FlowLayout(Context context) {
+    public CustomLayout(Context context) {
         super(context);
         mContext = context;
     }
 
-    public FlowLayout(Context context, AttributeSet attrs) {
+    public CustomLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
     }
 
-    public FlowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
     }
+
 
 
     @Override
@@ -47,6 +53,7 @@ public class FlowLayout extends ViewGroup{
 
         int layoutWidth = 0;
         int layoutHeight = 0;
+
 
 
         int cWidth = 0;
@@ -67,10 +74,8 @@ public class FlowLayout extends ViewGroup{
                 View child = getChildAt(i);
                 cWidth = child.getMeasuredWidth();
                 params = (FlowLayoutParams)child.getLayoutParams();
-                int marginWidth = cWidth + params.leftMargin + params.rightMargin + getPaddingLeft() + getPaddingRight();
+                int marginWidth = cWidth + params.leftMargin + params.rightMargin;
                 layoutWidth = (layoutWidth > marginWidth ? layoutWidth : marginWidth);
-
-                layoutWidth = Math.min(layoutWidth, sizeWidth);
             }
         }
 
@@ -82,26 +87,15 @@ public class FlowLayout extends ViewGroup{
                 View child = getChildAt(i);
                 cHeight = child.getMeasuredHeight();
                 params = (FlowLayoutParams)child.getLayoutParams();
-                int marginHeight = cHeight + params.topMargin + params.bottomMargin + getPaddingTop() + getPaddingBottom();
+                int marginHeight = cHeight + params.topMargin + params.bottomMargin;
                 layoutHeight = (marginHeight>layoutHeight) ? marginHeight : layoutHeight;
-
-                layoutHeight = Math.min(layoutHeight, sizeHeight);
             }
         }
-        StringBuilder debugInfo = new StringBuilder();
-        debugInfo.append("widthMeasureSpec = " + MeasureSpec.toString(widthMeasureSpec))
-                .append("\t heightMeasureSpec = " + MeasureSpec.toString(heightMeasureSpec))
-                .append("\t layoutWidth=" + layoutWidth)
-                .append("\t layoutHeight=" + layoutHeight)
-                .append("\t getPaddingTop=" + getPaddingTop())
-                .append("\t getPaddingBottom" + getPaddingBottom())
-                .append("\t getPaddingLeft=" + getPaddingLeft())
-                .append("\t getPaddingRight" + getPaddingRight());
 
-        LogUtils.i(TAG, debugInfo.toString());
         setMeasuredDimension(layoutWidth, layoutHeight);
     }
 
+    //http://blog.csdn.net/xmxkf/article/details/51500304
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 
@@ -109,8 +103,6 @@ public class FlowLayout extends ViewGroup{
         int childMeasureWidth = 0;
         int childMeasureHeight = 0;
         FlowLayoutParams params = null;
-
-
 
         for (int i=0; i<count; i++){
             View child = getChildAt(i);
@@ -120,44 +112,70 @@ public class FlowLayout extends ViewGroup{
             params = (FlowLayoutParams)child.getLayoutParams();
             switch (params.position){
                 case FlowLayoutParams.POSITION_MIDDLE:  //中间
-                    left = (getWidth() - childMeasureWidth) / 2 - params.rightMargin + params.leftMargin + getPaddingLeft();
-                    top = (getHeight() - childMeasureHeight) / 2 + params.topMargin - params.bottomMargin + getPaddingTop();
+                        left = (getWidth() - childMeasureWidth) / 2 - params.rightMargin + params.leftMargin;
+                        top = (getHeight() - childMeasureHeight) / 2 + params.topMargin - params.bottomMargin;
                     break;
                 case FlowLayoutParams.POSITION_LEFT:  //左上
-                    left = 0 + params.leftMargin + getPaddingLeft();
-                    top=0 + params.topMargin + getPaddingTop();
+                        left = 0 + params.leftMargin;
+                        top=0 + params.topMargin;
                     break;
                 case FlowLayoutParams.POSITION_RIGHT: //右上
-                    left = getWidth() - childMeasureWidth - params.rightMargin - getPaddingRight();
-                    top = 0 + params.topMargin + getPaddingTop();
+                        left = getWidth() - childMeasureWidth - params.rightMargin;
+                        top = 0 + params.topMargin;
                     break;
                 case FlowLayoutParams.POSITION_BOTTOM: //左下
-                    left = 0 + params.leftMargin - getPaddingLeft();
-                    top = getHeight() - childMeasureHeight - params.bottomMargin - getPaddingBottom();
+                        left = 0 + params.leftMargin;
+                        top = getHeight() - childMeasureHeight - params.bottomMargin;
                     break;
                 case FlowLayoutParams.POSTION_RIGHT_AND_BOTTOM:  //右下角
-                    left = getWidth() - childMeasureWidth - params.rightMargin - getPaddingRight();
-                    top = getHeight() - childMeasureHeight - params.bottomMargin - getPaddingBottom();
+                        left = getWidth() - childMeasureWidth - params.rightMargin;
+                        top = getHeight() - childMeasureHeight - params.bottomMargin;
                     break;
                 default:
                     LogUtils.e(TAG, "onLayout() switch错误的出现了默认值");
             }
 
-            StringBuilder debugInfo = new StringBuilder();
-            debugInfo.append(getPosition(params.position)  + "\t");
-            debugInfo.append("left = " + left)
-                     .append("\t top=" + top)
-                    .append("\t childMeasureWidth= " + childMeasureWidth)
-                    .append("\t childMeasureHeight=" + childMeasureHeight);
-
-            debugInfo.append("\t getPaddingTop=" + getPaddingTop())
-                    .append("\t getPaddingBottom" + getPaddingBottom())
-                    .append("\t getPaddingLeft=" + getPaddingLeft())
-                    .append("\t getPaddingRight" + getPaddingRight());
-
-            LogUtils.i(TAG, debugInfo.toString());
             child.layout(left, top, left+childMeasureWidth, top+childMeasureHeight);
         }
+
+//        final int count = getChildCount();
+//        int childMeasureWidth = 0;
+//        int childMeasureHeight = 0;
+//
+//        int layoutWidth = 0; //容器已经占据的宽度
+//        int layoutHeight = 0;  //容器已经占据的高度
+//
+//        int maxChildHeightOneItem = 0;  //一行中子控件最高的高度, 用于决定下一行高度应该在目前的基础上累加多少
+//        for (int i=0; i<count; i++){
+//            View child = getChildAt(i);
+//            childMeasureWidth = child.getMeasuredWidth();
+//            childMeasureHeight = child.getMeasuredHeight();
+//
+//            if (layoutWidth < getWidth()) {
+//                //一行没有排满，继续往右排列
+//                left = layoutWidth;
+//                right = left + childMeasureWidth;
+//                top = layoutHeight;
+//                bottom = top + childMeasureHeight;
+//            }else {
+//                //排满后换行
+//                layoutWidth = 0;
+//                layoutHeight += maxChildHeightOneItem;
+//                maxChildHeightOneItem = 0;
+//
+//                left = layoutWidth;
+//                right = left + childMeasureWidth;
+//                top = layoutHeight;
+//                bottom = top + childMeasureHeight;
+//            }
+//
+//            layoutWidth += childMeasureWidth;  //宽度累加
+//            if (childMeasureHeight > maxChildHeightOneItem){
+//                maxChildHeightOneItem = childMeasureHeight;
+//            }
+//
+//            child.layout(left, top, right, bottom);
+//        }
     }
 
 
@@ -194,9 +212,9 @@ public class FlowLayout extends ViewGroup{
 
         public FlowLayoutParams(Context context, AttributeSet attrs) {
             super(context, attrs);
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FlowLayout);
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CustomLayout);
             // 获取在子控件上的 位置属性
-            position = a.getInt(R.styleable.FlowLayout_flow_layout_position, position);
+            position = a.getInt(R.styleable.CustomLayout_layout_position, position);
             a.recycle();
         }
 
@@ -209,21 +227,4 @@ public class FlowLayout extends ViewGroup{
         }
     }
 
-
-    public static String getPosition(int posisiton){
-        switch (posisiton){
-            case FlowLayoutParams.POSITION_MIDDLE:
-                return "中间";
-            case FlowLayoutParams.POSITION_LEFT:
-                return "左上";
-            case FlowLayoutParams.POSITION_RIGHT:
-                return "右上";
-            case FlowLayoutParams.POSITION_BOTTOM:
-                return "左下";
-            case FlowLayoutParams.POSTION_RIGHT_AND_BOTTOM:
-                return "右下";
-            default:
-                return "出现null";
-        }
-    }
 }
