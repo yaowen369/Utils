@@ -98,7 +98,7 @@ public class Utils_Location {
 
 
     /**
-     * 强制打开GPS  (不一定能正常使用)
+     * 强制打开GPS  (对于某些型号手机,不一定能正常使用)
      *
      * @param context
      */

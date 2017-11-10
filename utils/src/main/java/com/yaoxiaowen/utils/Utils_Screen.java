@@ -14,6 +14,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
 
+/**
+ *  和屏幕 尺寸,dp,px转换有关的工具类  <br/>
+ *
+ * @author <a href="http://www.yaoxiaowen.com/">www.yaoxiaowen.com</a>
+ * @version 0.0.1
+ * <p>
+ */
 public final class Utils_Screen {
 	private Utils_Screen() {
 		/* cannot be instantiated */
@@ -22,7 +29,6 @@ public final class Utils_Screen {
 
 	/**
 	 *获取屏幕宽度
-	 *
 	 */
 	public static int getScreenWidth(Context context) {
 		if (null != context) {
@@ -38,7 +44,6 @@ public final class Utils_Screen {
 
 	/**
 	 * 获取屏幕高度
-	 *
 	 */
 	public static int getScreenHeight(Context context) {
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -49,7 +54,6 @@ public final class Utils_Screen {
 
 	/**
 	 *获取状态栏高度
-	 *
 	 */
 	public static int getStatusHeight(Context context) {
 
@@ -78,8 +82,8 @@ public final class Utils_Screen {
     }
 
     /**
-     *屏幕截图带状态栏
-     *
+     *  屏幕截图带状态栏
+     * @return 返回截图的Bitmap
      */
     public static Bitmap snapShotWithStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
@@ -99,7 +103,7 @@ public final class Utils_Screen {
 
 	/**
 	 *屏幕截图去除状态栏
-	 *
+	 *  @return 返回截图的Bitmap
 	 */
 	public static Bitmap snapShotWithoutStatusBar(Activity activity) {
 		View view = activity.getWindow().getDecorView();
@@ -121,7 +125,7 @@ public final class Utils_Screen {
 	}
 
 	/**
-	 * 屏幕密度
+	 * 获取屏幕密度 (所谓屏幕密度，就是 dp/px)
 	 */
 	public static float getDensityDpi(Context context) {
 		DisplayMetrics dm = new DisplayMetrics();
@@ -129,21 +133,35 @@ public final class Utils_Screen {
 		return dm.density / 1.0f;
 	}
 
+	/**
+	 * 根据本手机屏幕密度,dp值转化为px值
+	 */
 	public static int dp2px(Context context, float dp) {
 		final float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (dp * scale + 0.5f);
 	}
 
+	/**
+	 * 根据本手机屏幕密度,px值转化为px值
+	 */
 	public static int px2dp(Context context, float pxValue) {
 		final float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (pxValue / scale + 0.5f);
 	}
 
+	/**
+	 * 根据本手机屏幕密度,px值转化为sp值
+	 * sp值专供字体字号使用. 更适合字体的缩放
+	 */
 	public static int px2sp(Context context, float pxValue) {
 		final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
 		return (int) (pxValue / fontScale + 0.5f);
 	}
 
+	/**
+	 * 根据本手机屏幕密度,sp值转化为px值
+	 * sp值专供字体字号使用. 更适合字体的缩放
+	 */
 	public static int sp2px(Context context, float spValue) {
 		final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
 		return (int) (spValue * fontScale + 0.5f);

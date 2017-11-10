@@ -14,16 +14,26 @@ import java.util.TimerTask;
  * 检测网速的工具类 <br/>
  *
  * @author <a href="http://www.yaoxiaowen.com/">www.yaoxiaowen.com</a>
+ * @version 0.0.1
+ * <p>
+ *     使用单例模式来实例化,<br/>
+ *     使用hadler的message#arg1 来得到网速值.(网速kb)<br/>
  *
  *
+ *     <p>
+ *         具体使用方式. 得到单例对象之后, 通过 startCalculateNetSpeed() 开始计算，
+ *         在handler的回调方法中得到具体网速值之后，调用stopCalculateNetSpeed()来停止计算
+ *     </p>
  *
+ *
+ * </p>
  */
 public class Utils_NetSpeed {
     private static Utils_NetSpeed ourInstance = new Utils_NetSpeed();
 
-    public static Utils_NetSpeed getInstance() {
-        return ourInstance;
-    }
+//    public static Utils_NetSpeed getInstance() {
+//        return ourInstance;
+//    }
 
     private Utils_NetSpeed() {
     }
@@ -59,7 +69,11 @@ public class Utils_NetSpeed {
         return rxBytes;
     }
 
-    public int getNetSpeed() {
+    /**
+     * 得到网速 (单位:kb)
+     * @return int类型。
+     */
+    private int getNetSpeed() {
 
         long curRxBytes = getNetworkRxBytes();
         long bytes = curRxBytes - preRxBytes;
@@ -68,6 +82,9 @@ public class Utils_NetSpeed {
         return kb;
     }
 
+    /**
+     * 调用此方法，才能正式开始计算网速.
+     */
     public void startCalculateNetSpeed() {
         preRxBytes = getNetworkRxBytes();
         if (mTimer != null) {
@@ -88,6 +105,9 @@ public class Utils_NetSpeed {
         }
     }
 
+    /**
+     * 得到网速值之后,记得进行关闭该操作.
+     */
     public void stopCalculateNetSpeed() {
         if (mTimer != null) {
             mTimer.cancel();

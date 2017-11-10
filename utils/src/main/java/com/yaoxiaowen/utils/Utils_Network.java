@@ -7,15 +7,26 @@ import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
 /**
- * 检测网络状态的工具类 <br/>
+ * 检测网络类型状态的工具类 <br/>
  *
  * @author <a href="http://www.yaoxiaowen.com/">www.yaoxiaowen.com</a>
+ * @version 0.0.1
+ * <p>
  *
+ * 需要以下权限
+ *  <br/>
+ * <block>
+ *  &#60;uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /&#62;<br/>
+ *  &#60;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&#62;<br/>
+ *  &#60;uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /&#62;<br/>
+ *  &#60;uses-permission android:name="android.permission.INTERNET" /&#62;<br/>
+ * </block>
  */
 public class Utils_Network {
 
     /**
-     * wifi
+     * 是否wifi开启
+     * @return true:开启
      */
     public static boolean isWifiEnabled(Context context) {
         ConnectivityManager mgrConn = (ConnectivityManager) context
@@ -28,9 +39,7 @@ public class Utils_Network {
     }
 
     /**
-     * if(activeNetInfo.getType()==ConnectivityManager.TYPE_MOBILE) { //�ж�3G��
-     *
-     * @param context
+     * 当前网络连接形式,是否是wifi
      * @return boolean
      */
     public static boolean isWifi(Context context) {
@@ -45,8 +54,7 @@ public class Utils_Network {
     }
 
     /**
-     *
-     * @param context
+     * 当前是否是 3G 连接
      * @return boolean
      */
     public static boolean is3G(Context context) {
@@ -60,6 +68,10 @@ public class Utils_Network {
         return false;
     }
 
+    /**
+     * 当前 网络是否连接
+     * @return   boolean
+     */
     public static boolean isNetworkConnected(Context context) {
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
@@ -73,6 +85,10 @@ public class Utils_Network {
         return false;
     }
 
+    /**
+     * 得到当前网络的类型.
+     * @return  可能的返回值是以下集合中的一个 {null, wifi, 2g, 3g, 4g}
+     */
     public static String getCurrentNetType(Context context) {
         String type = "";
         ConnectivityManager cm = (ConnectivityManager) context
